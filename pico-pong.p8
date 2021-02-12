@@ -8,11 +8,11 @@ __lua__
 function _init()
     player1 = {
         x = 0,
-        y = 0
+        y = 0;
     }
     player2 = {
         x = 124,
-        y = 112
+        y = 112;
     }
 end
 
@@ -22,12 +22,13 @@ end
 
 function _draw()
     cls()
-    
+    {
     -- draw player 1
-    rectfill(player1.x, player1.y, player1.x + 4, player1.y + 16, 7)
+    rectfill(player1.x, player1.y, player1.x + 4, player1.y + 16, 7);
     
     -- draw player 2
-    rectfill(player2.x, player2.y, player2.x + 4, player2.y + 16, 7)
+    rectfill(player2.x, player2.y, player2.x + 4, player2.y + 16, 7);
+    }
 end
 
 
