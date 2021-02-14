@@ -17,11 +17,30 @@ function _init()
     ball = {
         x = 62;
         y = 56;
+        dx = 1;
     }
 end
 
 function _update()
+    -- Left Player
+    if btn(2, 1) then
+        player1.y -= 1
+    elseif btn(3, 1) then
+        player1.y += 1
+    end
 
+    -- Right Player
+    if btn(2, 0) then
+        player2.y -= 1
+    elseif btn(3, 0) then
+        player2.y += 1
+    end
+
+    -- Ball
+    ball.x += ball.dx
+    if ball.x >= 124 or ball.x <= 0 then
+        ball.dx = -ball.dx
+    end
 end
 
 function _draw()
