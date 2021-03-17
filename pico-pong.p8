@@ -6,6 +6,7 @@ __lua__
 
 
 function _init()
+    playerHoldingBall = 0
     player1 = {
         x = 0,
         y = 0;
@@ -47,6 +48,26 @@ function _update()
         player2.y += playerSpeed
     end
 
+    -- A new round is starting
+    if btn(5, 0) and playerHoldingBall == 2 then
+        ball.dx = 1
+        playerHoldingBall = 0
+    elseif btn(5, 1) and playerHoldingBall == 1 then
+        ball.dx = -1
+        playerHoldingBall = 0
+    end
+
+    -- If a player is holding the ball, make it follow them
+    if playerHoldingBall == 1 then
+        ball.x = player1.x + player1.w + 1
+        ball.y = player1.y + (player1.h / 2) - (ball.h - 2)
+        return
+    elseif playerHoldingBall == 2 then
+        ball.x = player2.x - ball.w - 1
+        ball.y = player2.y + (player2.h / 2) - (ball.h - 2)
+        return
+    end
+
     -- Ball bounces off players, or ends the game if it misses
     ball.x += ball.dx
     if intersects(ball, player1) then
@@ -59,12 +80,10 @@ function _update()
         printh("player 2")
     elseif ball.x >= 128 then
         player1.score += 1
-        ball.x = 62
-        ball.y = 56
+        playerHoldingBall = 1
     elseif ball.x - ball.w <= 0 then
         player2.score += 1
-        ball.x = 62
-        ball.y = 56
+        playerHoldingBall = 2
     end
 
     -- Always bounce off the top and bottom walls
@@ -97,8 +116,6 @@ function intersects(rect1, rect2)
     if (rect1.y + rect1.h < rect2.y) or (rect1.y > rect2.y + rect2.h) then return false end
     return true
 end
-
-
 
 __gfx__
 00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
