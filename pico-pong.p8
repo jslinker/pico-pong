@@ -96,6 +96,16 @@ end
 function _draw()
     cls()
 
+    -- Draw the checkered divider
+    -- the 0's and 1's make this checkered pattern pattern:
+    -- 0101
+    -- 1010
+    -- 0101
+    -- 1010
+    fillp(0b0101101001011010)
+    rectfill(60,0,64,128,6)
+    fillp()
+
     -- Print the scores
     print(""..player1.score,32,0,7)
     print(""..player2.score,92,0,7)
