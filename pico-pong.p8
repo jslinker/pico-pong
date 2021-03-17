@@ -11,12 +11,14 @@ function _init()
         y = 0;
         w = 4;
         h = 16;
+        score = 0;
     }
     player2 = {
         x = 124,
         y = 112;
         w = 4;
         h = 16;
+        score = 0;
     }
     ball = {
         x = 62;
@@ -55,8 +57,14 @@ function _update()
         ball.x = player2.x - player2.w
         ball.dx = -ball.dx
         printh("player 2")
-    elseif ball.x >= 128 or ball.x <= 0 then
-        printh("GAME OVER")
+    elseif ball.x >= 128 then
+        player1.score += 1
+        ball.x = 62
+        ball.y = 56
+    elseif ball.x - ball.w <= 0 then
+        player2.score += 1
+        ball.x = 62
+        ball.y = 56
     end
 
     -- Always bounce off the top and bottom walls
@@ -68,6 +76,10 @@ end
 
 function _draw()
     cls()
+
+    -- Print the scores
+    print(""..player1.score,32,0,7)
+    print(""..player2.score,92,0,7)
     
     -- draw player 1
     rectfill(player1.x, player1.y, player1.x + player1.w, player1.y + player1.h, 7);
